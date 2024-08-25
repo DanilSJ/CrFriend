@@ -1,47 +1,55 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import { TouchableOpacity, View, Text, Alert, StyleSheet } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 
 export default function App() {
-  const handleCreateFileAndShare = async () => {
-    // Request access to contacts
-    const { status } = await Contacts.requestPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert('Error', 'Permission is required to access contacts');
-      return;
-    }
+  useEffect(() => {
+    const requestPermissions = async () => {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Error', 'Permission is required to access the contacts.');
+      }
+    };
 
-    // Get all contacts
+    requestPermissions();
+  }, []);
+
+  const handleCreateFileAndShare = async () => {
+    // Получение всех контактов
     const { data } = await Contacts.getContactsAsync({
       fields: [Contacts.Fields.PhoneNumbers],
     });
 
     if (data.length > 0) {
-      // Filter contacts with phone numbers
+      // Фильтрация контактов с номерами телефонов
       const contactsWithPhones = data.filter(
         contact => contact.phoneNumbers && contact.phoneNumbers.length > 0
       );
 
       if (contactsWithPhones.length > 0) {
-        // Format contacts into text in the required format
+        // Форматирование контактов в текст
         const contactsText = contactsWithPhones.map(contact => {
-          const phoneNumbersText = contact.phoneNumbers.map(phone => `Номер Телефона - ${phone.number}`).join('\n');
-          return `Имя - ${contact.name}\n${phoneNumbersText}`;
+          const phoneNumbersText = contact.phoneNumbers.map(phone => `Номер телефона: ${phone.number}`).join('\n');
+          return `Имя: ${contact.name}\n${phoneNumbersText}`;
         }).join('\n\n');
 
-        // Create a text file
+        // Создание текстового файла
         const fileUri = `${FileSystem.documentDirectory}Friend.cr`;
         await FileSystem.writeAsStringAsync(fileUri, contactsText);
 
-        // Share the file
-        await Sharing.shareAsync(fileUri);
+        // Поделиться файлом
+        await Sharing.shareAsync(fileUri, {
+          mimeType: 'text/plain', // Явно указываем MIME-тип
+          dialogTitle: 'Share your contacts',
+        });
       } else {
-        Alert.alert('Information', 'Contacts with phone numbers were not found');
+        Alert.alert('Information', 'Contacts with phone numbers were not found.');
       }
     } else {
-      Alert.alert('Information', 'No contacts found');
+      Alert.alert('Information', 'No contacts were found.');
     }
   };
 
@@ -73,7 +81,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 60,
     left: 0,
     right: 0,
     alignItems: 'center',
@@ -92,4 +100,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-});
+})

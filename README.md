@@ -27,7 +27,7 @@ cd CrFriend
 
 bash
 
-  npm install
+  ```npm install```
 
 Если вы используете yarn:
 
@@ -35,14 +35,14 @@ bash
 
     yarn install
 
-Запуск проекта
+# Запуск проекта
 1. Запуск проекта с Expo
 
 Если ваш проект создан на основе Expo, запустите его с помощью следующей команды:
 
 bash
 
-expo start
+```expo start```
 
 Это откроет браузер с Expo Dev Tools, где вы сможете запустить приложение на эмуляторе или физическом устройстве.
 2. Запуск проекта с использованием EAS (Expo Application Services)
@@ -52,18 +52,18 @@ expo start
 
 bash
 
-eas build:configure
+```eas build:configure```
 
 Сборка проекта для iOS
 
 bash
 
-eas build -p ios
+```eas build -p ios```
 
 Сборка проекта для Android
 
 bash
 
-eas build -p android
+```eas build -p android```
 
 После завершения сборки вы получите ссылку для загрузки .apk или .ipa файла.

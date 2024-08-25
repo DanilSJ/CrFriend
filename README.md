@@ -12,8 +12,8 @@
 
 1. Клонируйте репозиторий на ваш локальный компьютер:
 
-   ```bash
-   git clone https://github.com/DanilSJ/CrFriend.git
+   `bash
+     ``` git clone https://github.com/DanilSJ/CrFriend.git```
 
     Перейдите в директорию проекта:
 
@@ -33,7 +33,7 @@ bash
 
 bash
 
-    yarn install
+```yarn install```
 
 # Запуск проекта
 1. Запуск проекта с Expo

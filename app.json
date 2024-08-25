@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "CrFriend",
+    "slug": "CrFriend",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./ico/ico.jpg",
+    "userInterfaceStyle": "light"
+  }
+}

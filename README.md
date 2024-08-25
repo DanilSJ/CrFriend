@@ -1,4 +1,4 @@
-# BreadcrumbsCrFriend
+# CrFriend
 
 ## Предварительные требования
 
